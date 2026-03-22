@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Axiom PropTech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#030508] text-slate-300 min-h-screen font-sans">
+    <div class="max-w-3xl mx-auto px-6 py-20">
+        <a href="index.html" class="text-yellow-600 hover:text-yellow-500 mb-8 inline-block transition-colors text-xs uppercase tracking-widest font-bold">&larr; Back to Intelligence</a>
+        <h1 class="text-4xl font-serif font-black text-white mb-8">Terms of Service & Disclaimers</h1>
+        
+        <div class="space-y-6 text-slate-400 leading-relaxed font-light">
+            
+            <h2 class="text-xl text-white font-serif font-bold mt-8">1. Acceptance of Terms</h2>
+            <p>By accessing the Axiom PropTech Intelligence platform, you agree to be bound by these Terms of Service. If you do not agree, please do not use our website.</p>
+            
+            <h2 class="text-xl text-white font-serif font-bold mt-8">2. YMYL & Financial Disclaimer (Crucial)</h2>
+            <p><strong>Axiom PropTech is not a registered real estate brokerage, financial advisor, or legal firm.</strong> The global city price indices, market insights, and software reviews provided on this platform are generated via Artificial Intelligence models for informational and educational purposes only.</p>
+            <p>None of the content should be construed as formal investment, financial, or real estate advice. Users must conduct their own independent due diligence before making any commercial decisions based on data found here.</p>
+            
+            <h2 class="text-xl text-white font-serif font-bold mt-8">3. Affiliate Disclosure</h2>
+            <p>Axiom PropTech may participate in affiliate marketing programs. We may earn a commission when you click on or make a purchase via certain links to PropTech software vendors. This occurs at no additional cost to you.</p>
+
+            <h2 class="text-xl text-white font-serif font-bold mt-8">4. Contact</h2>
+            <p>For any inquiries regarding these terms, please email: <strong class="text-white font-mono">hello@axiomproptech.com</strong></p>
+        </div>
+    </div>
+</body>
+</html>
