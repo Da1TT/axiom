@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom PropTech - The Autonomous Advantage for Elite Brokerages</title>
+    <meta name="description" content="The ultimate Artificial Intelligence directory and market intelligence platform for top-tier real estate professionals.">
+    <!-- AdSense 必备标识 -->
+    <meta name="theme-color" content="#030508">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = { 
+            theme: { 
+                extend: { 
+                    colors: { 
+                        dark: '#030508', /* 极夜黑曜石 */
+                        navy: '#0a0f1c', /* 顶级机构深灰蓝 */
+                        navyHover: '#111827',
+                        gold: '#d4af37', /* 沉稳的香槟金 */
+                        goldHover: '#c5a059',
+                        accent: '#e2e8f0' 
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'], /* 增加奢侈品级高级感 */
+                    }
+                } 
+            } 
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030508; color: #cbd5e1; }
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(3, 5, 8, 0.75), rgba(3, 5, 8, 1)), url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .glass-card { background: rgba(10, 15, 28, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.08); }
+        .gold-gradient-text { background: linear-gradient(to right, #fceebb, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="selection:bg-gold/30 selection:text-gold-100 min-h-screen flex flex-col">
+
+    <!-- Cookie 合规横幅 (AdSense 审核加分项) -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-navy border-t border-slate-800 z-[100] p-4 transform transition-transform duration-500">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
+            <p>We use cookies to enhance your experience and analyze market intelligence traffic. By proceeding, you agree to our <a href="privacy.html" class="text-gold hover:underline">Privacy Policy</a>.</p>
+            <button onclick="document.getElementById('cookie-banner').style.display='none'" class="bg-gold text-dark px-6 py-2 rounded font-bold hover:bg-goldHover transition-colors whitespace-nowrap uppercase tracking-wider text-[10px]">Accept & Close</button>
+        </div>
+    </div>
+
+    <!-- 顶级奢华导航栏 -->
+    <nav class="fixed w-full z-50 bg-dark/90 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4 group">
+                <div class="relative flex items-center justify-center w-12 h-12 rounded-full border border-gold/30 bg-dark shadow-[0_0_20px_rgba(212,175,55,0.1)] group-hover:border-gold/60 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-all duration-700">
+                    <div class="absolute inset-0 rounded-full border border-gold/10 animate-[spin_10s_linear_infinite]"></div>
+                    <i data-lucide="hexagon" class="w-4 h-4 text-gold/80"></i>
+                    <div class="absolute w-1 h-1 bg-gold rounded-full shadow-[0_0_8px_rgba(212,175,55,1)]"></div>
+                </div>
+                <div class="flex flex-col justify-center mt-1">
+                    <span class="text-2xl font-serif font-black tracking-[0.18em] text-white uppercase leading-none mb-1">Axiom<span class="text-gold">.</span></span>
+                    <span class="text-[8px] font-sans text-gold/80 tracking-[0.35em] uppercase font-bold">PropTech Intelligence</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-10 text-xs font-bold uppercase tracking-widest text-slate-400">
+                <a href="#tools" class="hover:text-gold transition-colors">AI Stack</a>
+                <a href="#prompt-vault" class="hover:text-gold transition-colors">Broker Prompts</a>
+                <a href="#feed" class="hover:text-gold transition-colors">Market Insights</a>
+                <a href="#newsletter" class="text-dark bg-gold px-6 py-3 rounded-sm hover:bg-goldHover transition-colors shadow-lg shadow-gold/10">The 1% Club</a>
+            </div>
+            
+            <button class="md:hidden text-slate-300" id="mobile-menu-btn">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-navy border-b border-white/5 px-4 py-4 space-y-4 text-xs font-bold uppercase tracking-widest">
+            <a href="#tools" class="block text-slate-400 hover:text-gold">AI Stack</a>
+            <a href="#prompt-vault" class="block text-slate-400 hover:text-gold">Broker Prompts</a>
+            <a href="#feed" class="block text-slate-400 hover:text-gold">Market Insights</a>
+        </div>
+    </nav>
+
+    <!-- 机构级大视野 Hero 区 -->
+    <header class="hero-bg pt-40 pb-24 relative border-b border-slate-800/50">
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10 mt-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-navy/40 border border-gold/20 text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-10 backdrop-blur-md">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
+                The Standard in Real Estate Automation
+            </div>
+            <h1 class="text-5xl md:text-[5rem] font-black text-white mb-8 tracking-tight leading-[1.05]">
+                The Autonomous Advantage for <br class="hidden md:block" />
+                <span class="gold-gradient-text font-serif italic pr-2">Elite Brokerages.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+                We synthesize, test, and deploy the world's most advanced AI models for <strong>virtual staging, predictive analytics, and automated lead generation</strong>. 
+            </p>
+        </div>
+    </header>
+
+    <!-- 🌍 全球核心城市房价大盘 (YMYL 合规版) -->
+    <div class="bg-navy py-8 relative overflow-hidden border-b border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-4 relative z-20">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                <div class="flex items-center gap-3">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-50"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-gold"></span>
+                    </span>
+                    <span class="text-xs font-bold text-white uppercase tracking-[0.15em]">Global City Price Index</span>
+                </div>
+                <div class="text-[9px] text-slate-500 font-mono mt-2 md:mt-0 flex items-center gap-2 bg-dark border border-slate-800 px-3 py-1.5 rounded uppercase tracking-wider">
+                    <i data-lucide="info" class="w-3 h-3"></i> Metric: Avg. Price / Sq.m (USD) | Powered by Axiom AI
+                </div>
+            </div>
+
+            <!-- 🚨 MARKET_DATA_ANCHOR_START 🚨 -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="border-l border-gold/50 pl-4 bg-dark/20 py-2">
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-gold/50"></i> New York</p>
+                    <p class="text-xl font-serif font-black text-white flex items-center gap-2">$15,200 <span class="text-[10px] text-rose-400 font-sans font-medium">↑ +1.2%</span></p>
+                </div>
+                <div class="border-l border-gold/50 pl-4 bg-dark/20 py-2">
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-gold/50"></i> London</p>
+                    <p class="text-xl font-serif font-black text-white flex items-center gap-2">$13,800 <span class="text-[10px] text-emerald-400 font-sans font-medium">↓ -0.5%</span></p>
+                </div>
+                <div class="border-l border-gold/50 pl-4 bg-dark/20 py-2">
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-gold/50"></i> Dubai</p>
+                    <p class="text-xl font-serif font-black text-white flex items-center gap-2">$7,400 <span class="text-[10px] text-rose-400 font-sans font-medium">↑ +4.8%</span></p>
+                </div>
+                <div class="border-l border-gold/50 pl-4 bg-dark/20 py-2">
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-gold/50"></i> Tokyo</p>
+                    <p class="text-xl font-serif font-black text-white flex items-center gap-2">$9,200 <span class="text-[10px] text-rose-400 font-sans font-medium">↑ +2.1%</span></p>
+                </div>
+                <div class="border-l border-gold/50 pl-4 bg-dark/20 py-2">
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-gold/50"></i> Beijing</p>
+                    <p class="text-xl font-serif font-black text-white flex items-center gap-2">$11,500 <span class="text-[10px] text-emerald-400 font-sans font-medium">↓ -1.0%</span></p>
+                </div>
+                <div class="border-l border-gold/50 pl-4 bg-dark/20 py-2">
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-gold/50"></i> Singapore</p>
+                    <p class="text-xl font-serif font-black text-white flex items-center gap-2">$16,300 <span class="text-[10px] text-rose-400 font-sans font-medium">↑ +0.8%</span></p>
+                </div>
+            </div>
+            <div class="mt-6 bg-dark border border-white/5 p-4 text-xs text-slate-400 font-mono border-l-2 border-l-gold flex items-start gap-3">
+                <i data-lucide="globe" class="w-4 h-4 text-gold flex-shrink-0 mt-0.5"></i> 
+                <p><strong class="text-white font-sans uppercase tracking-widest text-[10px] mr-2">Global Insight:</strong> Singapore leads the global premium market per square meter, while Dubai continues its aggressive tech-driven expansion.</p>
+            </div>
+            <!-- MARKET_DATA_ANCHOR_END -->
+        </div>
+    </div>
+
+    <!-- 💰 房产软件推荐区 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full flex-grow">
+        <section id="tools" class="mb-24">
+            <div class="mb-12 border-b border-slate-800/50 pb-6 text-center md:text-left">
+                <h2 class="text-3xl font-serif font-black text-white tracking-tight mb-3">Approved Intelligence Stack</h2>
+                <p class="text-slate-400 text-sm">The highest ROI software architectures utilized by top 1% producing agents.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 虚拟样板间 -->
+                <div class="glass-card p-8 hover:border-gold/40 transition-all duration-500 group relative overflow-hidden">
+                    <div class="w-12 h-12 bg-dark border border-gold/20 text-gold flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 rounded-sm">
+                        <i data-lucide="sofa" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">VirtualStaging AI</h3>
+                    <p class="text-slate-400 text-sm mb-10 leading-relaxed">Stop paying thousands for physical furniture. Upload an empty room photo and generate luxury digital staging in 10 seconds.</p>
+                    <a href="#" class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-gold hover:text-white transition-colors group-hover:gap-2 gap-1">
+                        Deploy System <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- AI 中介助手 -->
+                <div class="glass-card p-8 hover:border-gold/40 transition-all duration-500 group relative overflow-hidden">
+                    <div class="w-12 h-12 bg-dark border border-gold/20 text-gold flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 rounded-sm">
+                        <i data-lucide="bot" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Epique Copilot</h3>
+                    <p class="text-slate-400 text-sm mb-10 leading-relaxed">The AI assistant specifically trained for real estate. Auto-write MLS descriptions, cold outreach emails, and legal addendums.</p>
+                    <a href="#" class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-gold hover:text-white transition-colors group-hover:gap-2 gap-1">
+                        Deploy System <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- 房产估值数据 -->
+                <div class="glass-card p-8 hover:border-gold/40 transition-all duration-500 group relative overflow-hidden">
+                    <div class="w-12 h-12 bg-dark border border-gold/20 text-gold flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 rounded-sm">
+                        <i data-lucide="pie-chart" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Zillow Analytics API</h3>
+                    <p class="text-slate-400 text-sm mb-10 leading-relaxed">Integrate predictive market models into your own website. Identify off-market properties and highly motivated sellers instantly.</p>
+                    <a href="#" class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-gold hover:text-white transition-colors group-hover:gap-2 gap-1">
+                        Deploy System <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 💡 房产中介专属提示词金库 -->
+        <section id="prompt-vault" class="mb-24">
+            <div class="bg-navy/40 border border-slate-800/80 p-8 md:p-12 flex flex-col md:flex-row gap-12 items-center">
+                <div class="w-full md:w-1/3">
+                    <div class="inline-flex items-center justify-center w-10 h-10 border border-gold/30 text-gold mb-6 rounded-sm">
+                        <i data-lucide="terminal-square" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-3xl font-serif font-black text-white mb-4">The Prompt Vault</h2>
+                    <p class="text-slate-400 mb-8 text-sm leading-relaxed">Deploy our battle-tested conversational logic. 1-click copy to instruct ChatGPT for maximum conversion.</p>
+                    
+                    <div class="space-y-3">
+                        <button onclick="switchPrompt('listing')" class="prompt-tab w-full flex items-center justify-between px-5 py-4 bg-dark border border-gold/40 text-gold text-xs font-bold uppercase tracking-wider transition-all">
+                            Luxury Listing Copy <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="switchPrompt('email')" class="prompt-tab w-full flex items-center justify-between px-5 py-4 bg-transparent border border-slate-800 text-slate-500 hover:text-slate-300 text-xs font-bold uppercase tracking-wider transition-all">
+                            Cold Outreach <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="switchPrompt('social')" class="prompt-tab w-full flex items-center justify-between px-5 py-4 bg-transparent border border-slate-800 text-slate-500 hover:text-slate-300 text-xs font-bold uppercase tracking-wider transition-all">
+                            Social Media Script <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-2/3 bg-dark border border-slate-800 p-8 relative group min-h-[300px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-6 border-b border-slate-800/50 pb-4">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest border border-slate-700 px-2 py-1">Engine: GPT-4o / Claude 3.5</span>
+                        </div>
+                        <p id="prompt-display" class="font-mono text-sm text-gold/90 leading-relaxed">
+                            Act as a top 1% luxury real estate copywriter. Write a highly emotional and compelling 3-paragraph property description for a [4-bed, 3-bath modern estate with an infinity pool]. Highlight the smart home integration and the urgent market scarcity. Tone: Exclusive, sophisticated, and urgent.
+                        </p>
+                    </div>
+                    <button onclick="copyCurrentPrompt()" class="self-end mt-8 border border-gold/40 hover:bg-gold/10 text-gold text-xs font-bold uppercase tracking-widest px-6 py-3 transition-all flex items-center gap-2">
+                        <i data-lucide="copy" class="w-4 h-4"></i> <span id="copy-text">Copy Logic</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心文章流 & 侧边栏 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            <!-- 📚 左侧：AI 深度干货文章 -->
+            <div class="lg:col-span-8">
+                <div class="flex items-center justify-between mb-10 pb-4 border-b border-slate-800/50">
+                    <h2 id="feed" class="text-3xl font-serif font-black text-white flex items-center gap-3">
+                        Market Insights
+                    </h2>
+                </div>
+                
+                <div id="article-list" class="space-y-10">
+                    <!-- 🚨 AI_ARTICLE_ANCHOR -->
+                    <!-- AI_ARTICLE_ANCHOR -->
+
+                    <a href="#" class="block group">
+                        <article class="flex flex-col md:flex-row gap-8 bg-transparent p-0 transition-all duration-300">
+                            <div class="w-full md:w-64 h-48 overflow-hidden flex-shrink-0 relative border border-slate-800">
+                                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=600&auto=format&fit=crop" alt="Real Estate Investment" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0">
+                                <div class="absolute inset-0 bg-dark/20"></div>
+                            </div>
+                            <div class="flex flex-col justify-center py-2">
+                                <div class="flex items-center gap-3 mb-4 text-[9px] font-bold uppercase tracking-[0.2em]">
+                                    <span class="text-gold border border-gold/30 px-2 py-1">SYS_INIT</span>
+                                </div>
+                                <h3 class="text-2xl font-black text-white group-hover:text-gold transition-colors mb-4 leading-tight font-serif">Awaiting Real Estate Intelligence Reports</h3>
+                                <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-6">Our analytics models are synthesizing the latest trends in PropTech. Deep-dive articles on automation and sales strategies will populate here automatically.</p>
+                                <div class="flex items-center text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                                    <span class="flex items-center gap-1.5"><i data-lucide="user" class="w-3.5 h-3.5"></i> Axiom Editorial Desk</span>
+                                </div>
+                            </div>
+                        </article>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ➡️ 右侧边栏：收集邮箱、AdSense 广告 -->
+            <aside class="lg:col-span-4 space-y-12">
+                <div id="newsletter" class="bg-navy border border-slate-800 p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-1 h-full bg-gold"></div>
+                    <i data-lucide="award" class="w-8 h-8 text-gold mb-6"></i>
+                    <h3 class="text-2xl font-serif font-black text-white mb-3">The 1% Club</h3>
+                    <p class="text-sm text-slate-400 mb-8 leading-relaxed">Join elite real estate brokers receiving our private AI growth hacks directly to their inbox.</p>
+                    <form onsubmit="event.preventDefault();" class="space-y-4">
+                        <input type="email" placeholder="agent@brokerage.com" class="w-full bg-dark border border-slate-800 text-white px-4 py-4 focus:outline-none focus:border-gold transition-all text-sm font-mono">
+                        <button class="w-full bg-gold hover:bg-goldHover text-dark font-bold uppercase tracking-widest text-xs px-4 py-4 transition-colors">Request Access</button>
+                    </form>
+                </div>
+                
+                <div class="bg-dark border border-slate-800 border-dashed p-6 text-center h-[300px] flex flex-col justify-center sticky top-32">
+                    <span class="text-[9px] text-slate-600 font-bold uppercase tracking-widest absolute top-4 right-4">Advertisement</span>
+                    <i data-lucide="monitor" class="w-8 h-8 text-slate-700 mx-auto mb-3 opacity-30"></i>
+                    <span class="text-slate-600 text-xs font-mono uppercase tracking-widest">AdSense Space<br>300 x 250</span>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- 🛡️ 机构级 YMYL 合规页脚 -->
+    <footer class="bg-[#020407] border-t border-slate-800/50 pt-20 pb-12 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
+                <div class="md:col-span-2">
+                    <a href="/" class="flex items-center gap-3 mb-6">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full border border-gold/30 bg-dark">
+                            <i data-lucide="hexagon" class="w-3 h-3 text-gold/80"></i>
+                        </div>
+                        <span class="text-lg font-serif font-black tracking-[0.18em] text-white uppercase">Axiom<span class="text-gold">.</span></span>
+                    </a>
+                    <p class="text-slate-500 text-xs max-w-md leading-relaxed mb-6 font-medium">
+                        <strong class="text-slate-400">Disclaimer:</strong> The global index, valuations, and strategies provided are synthesized via AI for informational purposes only. This does not constitute financial, investment, or real estate advice.
+                    </p>
+                    <p class="text-slate-500 text-xs font-mono">Contact: <a href="mailto:hello@axiomproptech.com" class="text-gold hover:underline">hello@axiomproptech.com</a></p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-6 uppercase text-[10px] tracking-[0.2em]">Intelligence</h4>
+                    <ul class="space-y-4 text-xs font-medium text-slate-500">
+                        <li><a href="#tools" class="hover:text-gold transition-colors">Tech Architecture</a></li>
+                        <li><a href="#prompt-vault" class="hover:text-gold transition-colors">Copilot Scripts</a></li>
+                        <li><a href="#feed" class="hover:text-gold transition-colors">Market Analysis</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-6 uppercase text-[10px] tracking-[0.2em]">Compliance</h4>
+                    <ul class="space-y-4 text-xs font-medium text-slate-500">
+                        <li><a href="about.html" class="hover:text-gold transition-colors">About & Editorial</a></li>
+                        <li><a href="privacy.html" class="hover:text-gold transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-gold transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800/50 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-600 font-bold uppercase tracking-widest">
+                <p>&copy; <span id="year"></span> Axiom PropTech Intelligence. All rights reserved.</p>
+                <p class="mt-4 md:mt-0 text-gold/50">Designed for the 1%.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        const prompts = {
+            listing: "Act as a top 1% luxury real estate copywriter. Write a highly emotional and compelling 3-paragraph property description for a [4-bed, 3-bath modern estate with an infinity pool]. Highlight the smart home integration and the urgent market scarcity. Tone: Exclusive, sophisticated, and urgent.",
+            email: "I am representing the buyer. Draft a highly professional, persuasive email to the listing agent requesting a [$15,000] credit for roof repairs found during inspection. Base the argument on recent comps and maintaining a smooth closing timeline.",
+            social: "Create a viral 3-part Instagram Reel script about '3 Hidden Secrets First-Time Homebuyers Need to Know in 2026'. Keep the hook under 3 seconds. Include visual cues for B-roll and a strong Call to Action to download my free PDF guide."
+        };
+
+        function switchPrompt(type) {
+            document.getElementById('prompt-display').textContent = prompts[type];
+            const tabs = document.querySelectorAll('.prompt-tab');
+            tabs.forEach(tab => {
+                tab.className = "prompt-tab w-full flex items-center justify-between px-5 py-4 bg-transparent border border-slate-800 text-slate-500 hover:text-slate-300 text-xs font-bold uppercase tracking-wider transition-all";
+            });
+            event.currentTarget.className = "prompt-tab w-full flex items-center justify-between px-5 py-4 bg-dark border border-gold/40 text-gold text-xs font-bold uppercase tracking-wider transition-all";
+        }
+
+        function copyCurrentPrompt() {
+            const text = document.getElementById('prompt-display').textContent;
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const btnText = document.getElementById('copy-text');
+                btnText.textContent = "COPIED!";
+                setTimeout(() => btnText.textContent = "Copy Logic", 2000);
+            } catch (err) {}
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
