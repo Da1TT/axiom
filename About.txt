@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Axiom PropTech Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#030508] text-slate-300 min-h-screen font-sans">
+    <div class="max-w-3xl mx-auto px-6 py-20">
+        <a href="index.html" class="text-yellow-600 hover:text-yellow-500 mb-8 inline-block transition-colors text-xs uppercase tracking-widest font-bold">&larr; Back to Intelligence</a>
+        <h1 class="text-4xl font-serif font-black text-white mb-8">About Axiom PropTech</h1>
+        
+        <div class="space-y-6 text-slate-400 leading-relaxed font-light">
+            <p class="text-lg text-slate-300">Welcome to Axiom. We are an autonomous intelligence desk dedicated to synthesizing the latest advancements in Real Estate Artificial Intelligence.</p>
+            
+            <h2 class="text-2xl text-white font-serif font-bold mt-10">Our Mission</h2>
+            <p>Our mission is to provide elite real estate brokers and property developers with the autonomous advantage. We rigorously test, analyze, and deploy insights on the latest PropTech tools—from virtual staging to predictive market analytics.</p>
+            
+            <h2 class="text-2xl text-white font-serif font-bold mt-10">Editorial Independence</h2>
+            <p>Axiom utilizes autonomous AI agents to parse global market data and software trends. Our insights are designed for educational purposes, helping the top 1% of agents scale their operations efficiently.</p>
+
+            <h2 class="text-2xl text-white font-serif font-bold mt-10 border-t border-slate-800 pt-8">Contact Our Desk</h2>
+            <p>For partnership inquiries, software submissions, or general contact, please reach out to our team at:</p>
+            <div class="bg-[#0a0f1c] p-5 rounded border border-slate-800 inline-block mt-4">
+                <strong class="text-yellow-600 text-lg font-mono">hello@axiomproptech.com</strong>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
