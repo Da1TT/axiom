@@ -195,7 +195,7 @@ for index, topic in enumerate(niche_topics):
       "category": "One word: TOOLS, MARKETING, or ANALYTICS",
       "description": "Two sentences explaining how this strategy drives ROI.",
       "read_time": "e.g., 6 min",
-      "image_prompt": "A prompt for an AI image generator describing a realistic, ultra-luxury real estate tech cover photo (e.g., 'Minimalist modern luxury penthouse interior with subtle glowing digital data graphs')",
+      "image_prompt": "A SHORT, 5-10 word prompt for an AI image generator (e.g., 'Luxury modern penthouse interior glowing data')",
       "content": "The full article body formatted in valid HTML per the rules above. Do NOT include <html> or <body>."
     }}
     """
@@ -221,14 +221,24 @@ for index, topic in enumerate(niche_topics):
     if data:
         date_str = datetime.now().strftime('%b %d')
         
-        # 核心升级：图片双保险机制。剔除导致 URL 断裂的特殊符号
-        raw_image_desc = data.get('image_prompt', 'minimalist luxury penthouse interior dark mode gold accents tech')
-        clean_image_desc = re.sub(r'[^a-zA-Z0-9\s]', '', raw_image_desc) # 只保留字母数字和空格
+        # 核心修复：1. 限制提示词长度防报错 2. 加入随机种子(seed)强制每次生成全新的图 3. 动态备用图库
+        raw_image_desc = data.get('image_prompt', 'luxury real estate modern interior tech')
+        clean_image_desc = re.sub(r'[^a-zA-Z0-9\s]', '', raw_image_desc).strip() # 只保留字母数字和空格
         encoded_image_prompt = urllib.parse.quote(clean_image_desc)
         
-        random_image = f"https://image.pollinations.ai/prompt/{encoded_image_prompt}?width=800&height=500&nologo=true"
-        # 备用防爆底图：极具压迫感的高级曼哈顿大平层
-        fallback_image = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop"
+        # 加入随机种子，彻底打断 Pollinations 的缓存机制，保证全球唯一
+        random_seed = random.randint(1, 9999999)
+        random_image = f"https://image.pollinations.ai/prompt/{encoded_image_prompt}?width=800&height=500&nologo=true&seed={random_seed}"
+        
+        # 备用防爆底图库：如果 AI 画图接口宕机，从 5 张顶级豪宅图中随机抽一张，避免首页撞图
+        fallback_pool = [
+            "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop"
+        ]
+        fallback_image = random.choice(fallback_pool)
 
         safe_title = "".join([c if c.isalnum() else "-" for c in data['title'].lower()])
         safe_title = re.sub(r'-+', '-', safe_title).strip('-')
