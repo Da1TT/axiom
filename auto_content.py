@@ -359,17 +359,20 @@ if all_cards_html:
     with open('index.html', 'r', encoding='utf-8') as f:
         html_content = f.read()
 
-    anchor = ""
+    anchor = "<!-- AI_ARTICLE_ANCHOR -->"
     if anchor in html_content:
         # 主页防撑爆机制，保留最新 21 篇
-        article_blocks = html_content.split('')
+        article_blocks = html_content.split('<!-- AI Generated Article -->')
         if len(article_blocks) > 22: 
             kept_blocks = article_blocks[:22] 
-            html_content = ''.join(kept_blocks)
+            html_content = '<!-- AI Generated Article -->'.join(kept_blocks)
 
         updated_html = html_content.replace(anchor, f"{anchor}\n{all_cards_html}")
         with open('index.html', 'w', encoding='utf-8') as f:
             f.write(updated_html)
         print("\n🎉 成功：全量高质文章、防爆图与合规页脚已注入完毕！")
+    else:
+        print("\n❌ 致命错误：在 index.html 中找不到锚点 <!-- AI_ARTICLE_ANCHOR -->！请检查首页代码。")
+        sys.exit(1)
 else:
     sys.exit(1)
