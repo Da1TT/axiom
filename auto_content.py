@@ -141,8 +141,8 @@ try:
     with open('index.html', 'r', encoding='utf-8') as f:
         html_content = f.read()
     
-    pattern = r'.*?'
-    replacement = f'\n{new_data_html}\n            '
+    pattern = r'<!-- MARKET_DATA_ANCHOR_START -->.*?<!-- MARKET_DATA_ANCHOR_END -->'
+    replacement = f'<!-- MARKET_DATA_ANCHOR_START -->\n{new_data_html}\n            <!-- MARKET_DATA_ANCHOR_END -->'
     updated_html = re.sub(pattern, replacement, html_content, flags=re.DOTALL)
     
     with open('index.html', 'w', encoding='utf-8') as f:
