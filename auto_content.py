@@ -106,7 +106,6 @@ try:
     market_json = json.loads(clean_json_response(data_response.choices[0].message.content))
     print(f"✅ 大盘数据获取成功！")
     
-    # 组装奢华版数据看板 HTML
     new_data_html = f"""
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 <div class="border-l border-gold/50 pl-4 bg-dark/20 py-2">
@@ -142,8 +141,8 @@ try:
     with open('index.html', 'r', encoding='utf-8') as f:
         html_content = f.read()
     
-    pattern = r'<!-- MARKET_DATA_ANCHOR_START -->.*?<!-- MARKET_DATA_ANCHOR_END -->'
-    replacement = f'<!-- MARKET_DATA_ANCHOR_START -->\n{new_data_html}\n            <!-- MARKET_DATA_ANCHOR_END -->'
+    pattern = r'.*?'
+    replacement = f'\n{new_data_html}\n            '
     updated_html = re.sub(pattern, replacement, html_content, flags=re.DOTALL)
     
     with open('index.html', 'w', encoding='utf-8') as f:
@@ -172,22 +171,32 @@ niche_topics = [
 
 MAX_RETRIES = 3
 all_cards_html = ""
+current_year = datetime.now().year # 动态获取当前年份
 
 for index, topic in enumerate(niche_topics):
     print(f"🚀 正在生成文章 {index + 1}/10: [{topic}]")
     
+    # 核心升级：极其严厉的格式控制，杜绝 Markdown，强制生成高端 Key Takeaways 模块
     prompt = f"""
-    You are a veteran Real Estate Tech consultant and data analyst. Your writing style is highly authoritative, analytical, and tailored for top 1% real estate brokers.
-    Write a comprehensive tech blog post (at least 450 words) strictly about: "{topic}".
-    CRITICAL RULES: No AI cliches ("Revolutionize", "Landscape"). Focus on ROI, data, and institutional-grade strategies.
+    You are a veteran Real Estate Tech consultant and data analyst. Write a comprehensive tech blog post (at least 600 words) strictly about: "{topic}".
+    
+    CRITICAL FORMATTING RULES (FAILURE IS NOT AN OPTION):
+    1. Output ONLY valid HTML inside the "content" field. ABSOLUTELY NO MARKDOWN. Do not use **bold** or #. Use <strong>, <h2>, <h3>, <p>, <ul>, <li>.
+    2. Start the "content" with a visually distinct summary box exactly like this:
+       <div class="p-6 bg-[#0a0f1c] border border-gold/20 rounded-xl mb-8">
+         <h3 class="text-gold font-bold uppercase tracking-widest text-xs mb-4">Key Takeaways</h3>
+         <ul class="space-y-2"><li>...</li></ul>
+       </div>
+    3. Ensure the tone is authoritative, analytical, and tailored for top 1% elite real estate brokers. Focus on ROI and institutional-grade strategies.
+    
     Output ONLY a valid JSON object:
     {{
       "title": "A highly clickable, professional title for elite brokers",
       "category": "One word: TOOLS, MARKETING, or ANALYTICS",
       "description": "Two sentences explaining how this strategy drives ROI.",
       "read_time": "e.g., 6 min",
-      "image_prompt": "A prompt for an AI image generator describing a realistic, ultra-luxury real estate tech cover photo (e.g., 'Minimalist modern luxury penthouse interior with subtle glowing digital data graphs, obsidian and gold tones, cinematic lighting')",
-      "content": "The full article body formatted in valid HTML. Use <h2>, <p>, <ul>. Do NOT include <html> or <body>."
+      "image_prompt": "A prompt for an AI image generator describing a realistic, ultra-luxury real estate tech cover photo (e.g., 'Minimalist modern luxury penthouse interior with subtle glowing digital data graphs')",
+      "content": "The full article body formatted in valid HTML per the rules above. Do NOT include <html> or <body>."
     }}
     """
     
@@ -197,10 +206,10 @@ for index, topic in enumerate(niche_topics):
             response = client.chat.completions.create(
                 model="moonshot-v1-8k",
                 messages=[
-                    {"role": "system", "content": "Output ONLY JSON."},
+                    {"role": "system", "content": "You are a rigid HTML generator. Output ONLY JSON."},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.8,
+                temperature=0.7,
                 timeout=60.0 
             )
             data = json.loads(clean_json_response(response.choices[0].message.content))
@@ -211,9 +220,15 @@ for index, topic in enumerate(niche_topics):
             
     if data:
         date_str = datetime.now().strftime('%b %d')
-        image_desc = data.get('image_prompt', 'minimalist luxury penthouse interior dark mode gold accents tech')
-        encoded_image_prompt = urllib.parse.quote(image_desc)
+        
+        # 核心升级：图片双保险机制。剔除导致 URL 断裂的特殊符号
+        raw_image_desc = data.get('image_prompt', 'minimalist luxury penthouse interior dark mode gold accents tech')
+        clean_image_desc = re.sub(r'[^a-zA-Z0-9\s]', '', raw_image_desc) # 只保留字母数字和空格
+        encoded_image_prompt = urllib.parse.quote(clean_image_desc)
+        
         random_image = f"https://image.pollinations.ai/prompt/{encoded_image_prompt}?width=800&height=500&nologo=true"
+        # 备用防爆底图：极具压迫感的高级曼哈顿大平层
+        fallback_image = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop"
 
         safe_title = "".join([c if c.isalnum() else "-" for c in data['title'].lower()])
         safe_title = re.sub(r'-+', '-', safe_title).strip('-')
@@ -221,7 +236,7 @@ for index, topic in enumerate(niche_topics):
         
         os.makedirs('articles', exist_ok=True)
         
-        # 带有 YMYL 免责声明的单页 HTML 模板 (Axiom 黑金主题)
+        # 核心升级：完美的页脚，动态年份，自动连接 Trust Pages
         article_page_html = f"""<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -236,10 +251,11 @@ for index, topic in enumerate(niche_topics):
     </script>
     <style>
         body {{ font-family: 'Inter', sans-serif; background-color: #030508; color: #cbd5e1; }}
-        .article-body h2 {{ font-size: 1.8rem; font-weight: 900; font-family: 'Playfair Display', serif; color: #ffffff; margin-top: 2.5rem; margin-bottom: 1rem; }}
-        .article-body p {{ margin-bottom: 1.5rem; font-size: 1.125rem; line-height: 1.8; color: #94a3b8; }}
-        .article-body ul {{ list-style-type: square; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #94a3b8; }}
-        .article-body li {{ margin-bottom: 0.5rem; }}
+        .article-body h2 {{ font-size: 1.8rem; font-weight: 900; font-family: 'Playfair Display', serif; color: #ffffff; margin-top: 3rem; margin-bottom: 1.2rem; }}
+        .article-body h3 {{ font-size: 1.4rem; font-weight: 700; color: #f1f5f9; margin-top: 2rem; margin-bottom: 1rem; }}
+        .article-body p {{ margin-bottom: 1.8rem; font-size: 1.125rem; line-height: 1.8; color: #94a3b8; }}
+        .article-body ul {{ list-style-type: square; padding-left: 1.5rem; margin-bottom: 1.8rem; color: #94a3b8; }}
+        .article-body li {{ margin-bottom: 0.8rem; line-height: 1.6; }}
         .article-body strong {{ color: #ffffff; font-weight: 600; }}
         .article-body a {{ color: #d4af37; text-decoration: none; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 1px; }}
     </style>
@@ -279,7 +295,7 @@ for index, topic in enumerate(niche_topics):
         </div>
 
         <div class="mb-12 rounded border border-white/5 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative">
-            <img src="{random_image}" alt="Cover" class="w-full h-auto object-cover opacity-80 grayscale-[20%] hover:grayscale-0 transition-all duration-700">
+            <img src="{random_image}" onerror="this.onerror=null;this.src='{fallback_image}';" alt="Cover" class="w-full h-auto object-cover opacity-80 grayscale-[20%] hover:grayscale-0 transition-all duration-700">
             <div class="absolute inset-0 bg-gradient-to-t from-dark/50 to-transparent"></div>
         </div>
 
@@ -287,15 +303,24 @@ for index, topic in enumerate(niche_topics):
             {data['content']}
         </article>
 
-        <!-- YMYL 免责声明 -->
         <div class="mt-20 p-6 bg-navy border border-slate-800 rounded-sm">
             <p class="text-[11px] text-slate-500 leading-relaxed font-mono">
                 <strong class="text-slate-300">Compliance Disclaimer:</strong> This intelligence report was generated and compiled via autonomous AI models for educational purposes within the PropTech sector. It does not constitute financial, investment, or legal real estate advice. Real estate professionals must conduct independent due diligence.
             </p>
         </div>
     </main>
-    <footer class="border-t border-white/5 py-10 text-center text-slate-600 text-[10px] uppercase tracking-widest font-bold bg-[#020305]">
-        &copy; 2024 Axiom PropTech Intelligence. All rights reserved.
+    
+    <footer class="border-t border-slate-800/50 py-12 bg-[#020305] mt-10">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                &copy; {current_year} Axiom PropTech Intelligence.
+            </div>
+            <div class="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                <a href="../about.html" class="hover:text-gold transition-colors">About</a>
+                <a href="../privacy.html" class="hover:text-gold transition-colors">Privacy Policy</a>
+                <a href="../terms.html" class="hover:text-gold transition-colors">Terms of Service</a>
+            </div>
+        </div>
     </footer>
     <script>lucide.createIcons();</script>
 </body>
@@ -305,13 +330,12 @@ for index, topic in enumerate(niche_topics):
             
         update_sitemap(f"articles/{file_name}")
 
-        # 生成插入主页的卡片 HTML
+        # 首页卡片也加入双保险图片 onerror 机制
         new_article_html = f"""
-                    <!-- AI Generated Article -->
                     <a href="articles/{file_name}" class="block group">
                         <article class="flex flex-col md:flex-row gap-8 bg-transparent p-0 transition-all duration-300">
                             <div class="w-full md:w-64 h-48 overflow-hidden flex-shrink-0 relative border border-slate-800">
-                                <img src="{random_image}" alt="{data['title']}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0">
+                                <img src="{random_image}" onerror="this.onerror=null;this.src='{fallback_image}';" alt="{data['title']}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0">
                                 <div class="absolute inset-0 bg-dark/20"></div>
                             </div>
                             <div class="flex flex-col justify-center py-2">
@@ -335,17 +359,17 @@ if all_cards_html:
     with open('index.html', 'r', encoding='utf-8') as f:
         html_content = f.read()
 
-    anchor = "<!-- AI_ARTICLE_ANCHOR -->"
+    anchor = ""
     if anchor in html_content:
-        # 主页防撑爆机制，只保留最新的 21 篇文章
-        article_blocks = html_content.split('<!-- AI Generated Article -->')
+        # 主页防撑爆机制，保留最新 21 篇
+        article_blocks = html_content.split('')
         if len(article_blocks) > 22: 
             kept_blocks = article_blocks[:22] 
-            html_content = '<!-- AI Generated Article -->'.join(kept_blocks)
+            html_content = ''.join(kept_blocks)
 
         updated_html = html_content.replace(anchor, f"{anchor}\n{all_cards_html}")
         with open('index.html', 'w', encoding='utf-8') as f:
             f.write(updated_html)
-        print("\n🎉 成功：全量文章与 Sitemap 已注入完毕！")
+        print("\n🎉 成功：全量高质文章、防爆图与合规页脚已注入完毕！")
 else:
     sys.exit(1)
