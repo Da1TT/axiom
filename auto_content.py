@@ -130,24 +130,7 @@ try:
                 </div>
                 <div class="border-l border-gold/50 pl-4 bg-dark/20 py-2">
                     <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-gold/50"></i> Singapore</p>
-                    <p class="text-xl font-serif font-black text-white flex items-center gap-2">{market_json['singapore_price']} <span class="text-[10px] text-rose-400 font-sans font-medium">{market_json['singapore_trend']}</span></p>
-                </div>
-            </div>
-            <div class="mt-6 bg-dark border border-white/5 p-4 text-xs text-slate-400 font-mono border-l-2 border-l-gold flex items-start gap-3">
-                <i data-lucide="globe" class="w-4 h-4 text-gold flex-shrink-0 mt-0.5"></i> 
-                <p><strong class="text-white font-sans uppercase tracking-widest text-[10px] mr-2">Global Insight:</strong> {market_json['insight']}</p>
-            </div>"""
-
-    with open('index.html', 'r', encoding='utf-8') as f:
-        html_content = f.read()
-    
-    pattern = r'<!-- MARKET_DATA_ANCHOR_START -->.*?<!-- MARKET_DATA_ANCHOR_END -->'
-    replacement = f'<!-- MARKET_DATA_ANCHOR_START -->\n{new_data_html}\n            <!-- MARKET_DATA_ANCHOR_END -->'
-    updated_html = re.sub(pattern, replacement, html_content, flags=re.DOTALL)
-    
-    with open('index.html', 'w', encoding='utf-8') as f:
-        f.write(updated_html)
-    print("📈 首页大盘更新完毕！\n")
+    print("📈 首页全球 6 城房价看板已更新为今日最新估值！\n")
 
 except Exception as e:
     print(f"⚠️ 获取房价数据失败，跳过: {e}\n")
@@ -156,18 +139,32 @@ except Exception as e:
 # ---------------------------------------------------------
 # 模块二：生成 10 篇高客单价 B2B 房产长文
 # ---------------------------------------------------------
-niche_topics = [
-    "Top AI tools for luxury real estate lead generation in 2026",
-    "How elite brokers use ChatGPT to write high-converting property descriptions",
-    "Automating real estate email marketing campaigns with AI algorithms",
-    "Best AI CRM software for top-tier real estate brokerages",
-    "Using AI for predictive real estate market analysis and off-market properties",
-    "AI virtual staging tools: Transforming empty properties to maximize ROI",
-    "How real estate agents can use AI chatbots for 24/7 high-net-worth client support",
-    "AI-powered social media content creation strategies for realtors",
-    "Streamlining real estate contract analysis with AI legal assistants",
-    "Generating realistic architectural renders with Midjourney for property developers"
+base_topics = [
+    "luxury real estate lead generation",
+    "writing high-converting property descriptions",
+    "automating real estate email marketing campaigns",
+    "AI CRM software for top-tier real estate brokerages",
+    "predictive real estate market analysis",
+    "virtual staging tools to maximize ROI",
+    "AI chatbots for 24/7 high-net-worth client support",
+    "social media content creation strategies for realtors",
+    "streamlining contract analysis with AI legal assistants",
+    "architectural renders with Midjourney for developers",
+    "AI-driven property valuation models",
+    "finding off-market real estate deals using AI",
+    "automated follow-up systems for cold leads",
+    "AI voice assistants for real estate cold calling",
+    "optimizing luxury real estate SEO with AI tools",
+    "AI video tours and drone footage analysis",
+    "hyper-personalized real estate marketing with AI",
+    "predicting housing market trends using machine learning",
+    "AI tools for real estate investment risk assessment",
+    "managing real estate portfolios with AI automation"
 ]
+
+# 核心升级：每天从 20 个话题池中随机抽取 10 个，保证内容库无限拓展不重复
+random.shuffle(base_topics)
+niche_topics = base_topics[:10]
 
 MAX_RETRIES = 3
 all_cards_html = ""
@@ -176,18 +173,19 @@ current_year = datetime.now().year # 动态获取当前年份
 for index, topic in enumerate(niche_topics):
     print(f"🚀 正在生成文章 {index + 1}/10: [{topic}]")
     
-    # 核心升级：极其严厉的格式控制，杜绝 Markdown，强制生成高端 Key Takeaways 模块
+    # 核心升级：严控单引号，防止双引号破坏 JSON 结构导致程序静默崩溃
     prompt = f"""
     You are a veteran Real Estate Tech consultant and data analyst. Write a comprehensive tech blog post (at least 600 words) strictly about: "{topic}".
     
     CRITICAL FORMATTING RULES (FAILURE IS NOT AN OPTION):
     1. Output ONLY valid HTML inside the "content" field. ABSOLUTELY NO MARKDOWN. Do not use **bold** or #. Use <strong>, <h2>, <h3>, <p>, <ul>, <li>.
-    2. Start the "content" with a visually distinct summary box exactly like this:
-       <div class="p-6 bg-[#0a0f1c] border border-gold/20 rounded-xl mb-8">
-         <h3 class="text-gold font-bold uppercase tracking-widest text-xs mb-4">Key Takeaways</h3>
-         <ul class="space-y-2"><li>...</li></ul>
+    2. Start the "content" with a visually distinct summary box. You MUST use SINGLE QUOTES for all HTML attributes to avoid breaking the JSON format. Example:
+       <div class='p-6 bg-[#0a0f1c] border border-gold/20 rounded-xl mb-8'>
+         <h3 class='text-gold font-bold uppercase tracking-widest text-xs mb-4'>Key Takeaways</h3>
+         <ul class='space-y-2'><li>...</li></ul>
        </div>
-    3. Ensure the tone is authoritative, analytical, and tailored for top 1% elite real estate brokers. Focus on ROI and institutional-grade strategies.
+    3. Do NOT use double quotes (") inside the HTML content string.
+    4. Ensure the tone is authoritative, analytical, and tailored for top 1% elite real estate brokers. Focus on ROI.
     
     Output ONLY a valid JSON object:
     {{
@@ -216,6 +214,8 @@ for index, topic in enumerate(niche_topics):
             print(f"✅ 成功: {data['title']}")
             break  
         except Exception as e:
+            # 核心排雷：如果依然报错，将清楚打印出到底错在哪，方便 Debug
+            print(f"⚠️ 第 {attempt + 1} 次尝试失败: {e}")
             time.sleep(5) 
             
     if data:
@@ -377,12 +377,67 @@ if all_cards_html:
             kept_blocks = article_blocks[:22] 
             html_content = '<!-- AI Generated Article -->'.join(kept_blocks)
 
-        updated_html = html_content.replace(anchor, f"{anchor}\n{all_cards_html}")
+        # 核心优化：增加参数 1，确保只替换最顶部的第一个锚点，防止 DOM 翻倍错乱
+        updated_html = html_content.replace(anchor, f"{anchor}\n{all_cards_html}", 1)
         with open('index.html', 'w', encoding='utf-8') as f:
-            f.write(updated_html)
-        print("\n🎉 成功：全量高质文章、防爆图与合规页脚已注入完毕！")
+        f.write(updated_html)
+    print("📈 首页全球 6 城房价看板已更新为今日最新估值！\n")
+
+except Exception as e:
+    print(f"⚠️ 获取房价数据失败，跳过: {e}\n")
+
+
+# ---------------------------------------------------------
+# 模块二：动态感知热点，生成 7 篇高客单价房产长文
+# ---------------------------------------------------------
+print("🧠 正在让 AI 智囊团分析今日趋势，构思 7 个爆款房产科技话题...")
+topic_prompt = """
+You are an elite Real Estate Tech Trend Analyst. Based on the latest market trends, generate exactly 7 highly engaging, cutting-edge, and specific blog post topics about "Real Estate AI, PropTech, and Broker Automation".
+Avoid generic topics. Focus on high ROI strategies, virtual staging, AI CRM, predictive analytics, and social media AI algorithms.
+Output ONLY a valid JSON array of strings. No markdown, no extra text.
+Example: ["How top 1% realtors are using AI voice agents for cold calling", "The exact ChatGPT prompt sequence to double your open house leads"]
+"""
+
+try:
+    topic_response = client.chat.completions.create(
+        model="moonshot-v1-8k",
+        messages=[
+            {"role": "system", "content": "Output ONLY a valid JSON array of strings."},
+            {"role": "user", "content": topic_prompt}
+        ],
+        temperature=0.8,
+        timeout=30.0
+    )
+    niche_topics = json.loads(clean_json_response(topic_response.choices[0].message.content))
+    
+    # 确保只取 7 个话题
+    if isinstance(niche_topics, list) and len(niche_topics) > 0:
+        niche_topics = niche_topics[:7]
+        print(f"✅ 成功生成 {len(niche_topics)} 个今日热点话题：")
+        for t in niche_topics:
+            print(f" - {t}")
     else:
-        print("\n❌ 致命错误：在 index.html 中找不到锚点 <!-- AI_ARTICLE_ANCHOR -->！请检查首页代码。")
-        sys.exit(1)
-else:
-    sys.exit(1)
+        raise ValueError("AI 返回的话题格式不正确")
+
+except Exception as e:
+    print(f"⚠️ 动态获取话题失败，启用紧急备用话题库: {e}")
+    # 备用库，防止 API 偶尔抽风导致当天不发文
+    niche_topics = [
+        "Top AI tools for luxury real estate lead generation in 2026",
+        "How elite brokers use ChatGPT to write high-converting property descriptions",
+        "Automating real estate email marketing campaigns with AI algorithms",
+        "Best AI CRM software for top-tier real estate brokerages",
+        "Using AI for predictive real estate market analysis and off-market properties",
+        "AI virtual staging tools: Transforming empty properties to maximize ROI",
+        "AI-powered social media content creation strategies for realtors"
+    ]
+
+MAX_RETRIES = 3
+all_cards_html = ""
+current_year = datetime.now().year # 动态获取当前年份
+
+for index, topic in enumerate(niche_topics):
+    print(f"\n🚀 正在生成文章 {index + 1}/{len(niche_topics)}: [{topic}]")
+    
+    # 核心升级：严控单引号，防止双引号破坏 JSON 结构导致程序静默崩溃
+    prompt = f"""
