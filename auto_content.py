@@ -441,3 +441,216 @@ for index, topic in enumerate(niche_topics):
     
     # 核心升级：严控单引号，防止双引号破坏 JSON 结构导致程序静默崩溃
     prompt = f"""
+    You are a veteran Real Estate Tech consultant and data analyst. Write a comprehensive tech blog post (at least 600 words) strictly about: "{topic}".
+    
+    CRITICAL FORMATTING RULES (FAILURE IS NOT AN OPTION):
+    1. Output ONLY valid HTML inside the "content" field. ABSOLUTELY NO MARKDOWN. Do not use **bold** or #. Use <strong>, <h2>, <h3>, <p>, <ul>, <li>.
+    2. Start the "content" with a visually distinct summary box. You MUST use SINGLE QUOTES for all HTML attributes to avoid breaking the JSON format. Example:
+       <div class='p-6 bg-[#0a0f1c] border border-gold/20 rounded-xl mb-8'>
+         <h3 class='text-gold font-bold uppercase tracking-widest text-xs mb-4'>Key Takeaways</h3>
+         <ul class='space-y-2'><li>...</li></ul>
+       </div>
+    3. Do NOT use double quotes (") inside the HTML content string. Use single quotes instead.
+    4. Ensure the tone is authoritative, analytical, and tailored for top 1% elite real estate brokers. Focus on ROI.
+    
+    Output ONLY a valid JSON object:
+    {{
+      "title": "A highly clickable, professional title for elite brokers",
+      "category": "One word: TOOLS, MARKETING, or ANALYTICS",
+      "description": "Two sentences explaining how this strategy drives ROI.",
+      "read_time": "e.g., 6 min",
+      "image_prompt": "A SHORT, 5-10 word prompt for an AI image generator (e.g., 'Luxury modern penthouse interior glowing data')",
+      "content": "The full article body formatted in valid HTML per the rules above. Do NOT include <html> or <body>."
+    }}
+    """
+    
+    data = None
+    for attempt in range(MAX_RETRIES):
+        try:
+            response = client.chat.completions.create(
+                model="moonshot-v1-8k",
+                messages=[
+                    {"role": "system", "content": "You are a rigid HTML generator. Output ONLY JSON."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                timeout=60.0 
+            )
+            data = json.loads(clean_json_response(response.choices[0].message.content))
+            print(f"✅ 成功: {data['title']}")
+            break  
+        except Exception as e:
+            print(f"⚠️ 第 {attempt + 1} 次尝试失败: {e}")
+            time.sleep(5) 
+            
+    if data:
+        date_str = datetime.now().strftime('%b %d')
+        
+        # 核心修复：1. 限制提示词长度防报错 2. 加入随机种子强制每次生成全新的图 3. 动态备用图库
+        raw_image_desc = data.get('image_prompt', 'luxury real estate modern interior tech')
+        clean_image_desc = re.sub(r'[^a-zA-Z0-9\s]', '', raw_image_desc).strip() # 只保留字母数字和空格
+        encoded_image_prompt = urllib.parse.quote(clean_image_desc)
+        
+        # 加入随机种子，彻底打断 Pollinations 的缓存机制
+        random_seed = random.randint(1, 9999999)
+        random_image = f"https://image.pollinations.ai/prompt/{encoded_image_prompt}?width=800&height=500&nologo=true&seed={random_seed}"
+        
+        # 备用防爆底图库
+        fallback_pool = [
+            "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop"
+        ]
+        fallback_image = random.choice(fallback_pool)
+
+        safe_title = "".join([c if c.isalnum() else "-" for c in data['title'].lower()])
+        safe_title = re.sub(r'-+', '-', safe_title).strip('-')
+        file_name = f"{safe_title}.html"
+        
+        os.makedirs('articles', exist_ok=True)
+        
+        # 带有 YMYL 免责声明的单页 HTML 模板
+        article_page_html = f"""<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{data['title']} - Axiom PropTech</title>
+    <meta name="description" content="{data['description']}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {{ theme: {{ extend: {{ colors: {{ dark: '#030508', navy: '#0a0f1c', gold: '#d4af37' }} }}, fontFamily: {{ sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }} }} }}
+    </script>
+    <style>
+        body {{ font-family: 'Inter', sans-serif; background-color: #030508; color: #cbd5e1; }}
+        .article-body h2 {{ font-size: 1.8rem; font-weight: 900; font-family: 'Playfair Display', serif; color: #ffffff; margin-top: 3rem; margin-bottom: 1.2rem; }}
+        .article-body h3 {{ font-size: 1.4rem; font-weight: 700; color: #f1f5f9; margin-top: 2rem; margin-bottom: 1rem; }}
+        .article-body p {{ margin-bottom: 1.8rem; font-size: 1.125rem; line-height: 1.8; color: #94a3b8; }}
+        .article-body ul {{ list-style-type: square; padding-left: 1.5rem; margin-bottom: 1.8rem; color: #94a3b8; }}
+        .article-body li {{ margin-bottom: 0.8rem; line-height: 1.6; }}
+        .article-body strong {{ color: #ffffff; font-weight: 600; }}
+        .article-body a {{ color: #d4af37; text-decoration: none; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 1px; }}
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold/30 selection:text-white">
+    <nav class="border-b border-white/5 p-6 bg-dark/90 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <a href="../index.html" class="text-slate-400 hover:text-gold transition-colors flex items-center gap-2 font-bold uppercase tracking-widest text-xs">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Intelligence
+            </a>
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 border border-gold/30 rounded-full flex items-center justify-center"><i data-lucide="hexagon" class="w-3 h-3 text-gold"></i></div>
+                <span class="text-white font-serif font-black tracking-[0.1em] uppercase text-sm">Axiom<span class="text-gold">.</span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-6 py-16 w-full flex-grow">
+        <div class="mb-10 pb-8 border-b border-slate-800/50">
+            <span class="text-gold border border-gold/30 px-3 py-1 font-bold text-[10px] tracking-[0.2em] uppercase">{data['category']}</span>
+            <h1 class="text-4xl md:text-5xl font-serif font-black text-white mt-8 mb-8 leading-[1.15]">{data['title']}</h1>
+            
+            <div class="flex items-center justify-between border-t border-slate-800 pt-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-navy border border-slate-700 flex items-center justify-center">
+                        <i data-lucide="user" class="w-4 h-4 text-gold"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-white uppercase tracking-widest">Axiom Editorial Desk</p>
+                        <p class="text-[10px] text-slate-500 font-mono mt-1">Published on {date_str}</p>
+                    </div>
+                </div>
+                <div class="text-slate-400 text-xs font-mono border border-slate-800 bg-navy px-3 py-1 rounded">
+                    {data['read_time']} read
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-12 rounded border border-white/5 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative">
+            <img src="{random_image}" onerror="this.onerror=null;this.src='{fallback_image}';" alt="Cover" class="w-full h-auto object-cover opacity-80 grayscale-[20%] hover:grayscale-0 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/50 to-transparent"></div>
+        </div>
+
+        <article class="article-body">
+            {data['content']}
+        </article>
+
+        <!-- YMYL 免责声明 -->
+        <div class="mt-20 p-6 bg-navy border border-slate-800 rounded-sm">
+            <p class="text-[11px] text-slate-500 leading-relaxed font-mono">
+                <strong class="text-slate-300">Compliance Disclaimer:</strong> This intelligence report was generated and compiled via autonomous AI models for educational purposes within the PropTech sector. It does not constitute financial, investment, or legal real estate advice. Real estate professionals must conduct independent due diligence.
+            </p>
+        </div>
+    </main>
+    
+    <footer class="border-t border-slate-800/50 py-12 bg-[#020305] mt-10">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                &copy; {current_year} Axiom PropTech Intelligence.
+            </div>
+            <div class="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                <a href="../about.html" class="hover:text-gold transition-colors">About</a>
+                <a href="../privacy.html" class="hover:text-gold transition-colors">Privacy Policy</a>
+                <a href="../terms.html" class="hover:text-gold transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script>lucide.createIcons();</script>
+</body>
+</html>"""
+        with open(f"articles/{file_name}", "w", encoding='utf-8') as f:
+            f.write(article_page_html)
+            
+        update_sitemap(f"articles/{file_name}")
+
+        # 生成插入主页的卡片 HTML
+        new_article_html = f"""
+                    <!-- AI Generated Article -->
+                    <a href="articles/{file_name}" class="block group">
+                        <article class="flex flex-col md:flex-row gap-8 bg-transparent p-0 transition-all duration-300">
+                            <div class="w-full md:w-64 h-48 overflow-hidden flex-shrink-0 relative border border-slate-800">
+                                <img src="{random_image}" onerror="this.onerror=null;this.src='{fallback_image}';" alt="{data['title']}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0">
+                                <div class="absolute inset-0 bg-dark/20"></div>
+                            </div>
+                            <div class="flex flex-col justify-center py-2">
+                                <div class="flex items-center gap-3 mb-4 text-[9px] font-bold uppercase tracking-[0.2em]">
+                                    <span class="text-gold border border-gold/30 px-2 py-1">{data['category']}</span>
+                                </div>
+                                <h3 class="text-2xl font-black text-white group-hover:text-gold transition-colors mb-4 leading-tight font-serif">{data['title']}</h3>
+                                <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-6">{data['description']}</p>
+                                <div class="flex items-center text-[10px] text-slate-500 font-bold uppercase tracking-widest gap-4">
+                                    <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> {date_str}</span>
+                                    <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> {data['read_time']} READ</span>
+                                </div>
+                            </div>
+                        </article>
+                    </a>"""
+        
+        all_cards_html += new_article_html + "\n"
+        time.sleep(8)
+
+if all_cards_html:
+    with open('index.html', 'r', encoding='utf-8') as f:
+        html_content = f.read()
+
+    anchor = "<!-- AI_ARTICLE_ANCHOR -->"
+    if anchor in html_content:
+        # 主页防撑爆机制，保留最新 21 篇
+        article_blocks = html_content.split('<!-- AI Generated Article -->')
+        if len(article_blocks) > 22: 
+            kept_blocks = article_blocks[:22] 
+            html_content = '<!-- AI Generated Article -->'.join(kept_blocks)
+
+        updated_html = html_content.replace(anchor, f"{anchor}\n{all_cards_html}", 1)
+        with open('index.html', 'w', encoding='utf-8') as f:
+            f.write(updated_html)
+        print("\n🎉 成功：全量高质文章、防爆图与合规页脚已注入完毕！")
+    else:
+        print("\n❌ 致命错误：在 index.html 中找不到锚点 <!-- AI_ARTICLE_ANCHOR -->！请检查首页代码。")
+        sys.exit(1)
+else:
+    print("\n❌ 严重错误：7个话题全部生成失败，没有任何文章被渲染。请检查上面的错误日志！")
+    sys.exit(1)
