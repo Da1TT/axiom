@@ -558,4 +558,53 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-returns-with-ai-driven-crm-for-elite-brokers.html</loc>
+        <lastmod>2026-03-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/revolutionizing-real-estate-listings-the-virtual-staging-impact.html</loc>
+        <lastmod>2026-03-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/unlocking-the-future-with-predictive-analytics.html</loc>
+        <lastmod>2026-03-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/broker-automation-ai-efficiency-in-real-estate.html</loc>
+        <lastmod>2026-03-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/unlocking-roi-with-social-media-ai-algorithms.html</loc>
+        <lastmod>2026-03-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/unlocking-real-estate-profits-with-ai-driven-property-assessment.html</loc>
+        <lastmod>2026-03-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/elevate-real-estate-engagement-with-advanced-chatbots.html</loc>
+        <lastmod>2026-03-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
