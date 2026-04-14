@@ -1321,4 +1321,53 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-broker-roi-with-ai-crm.html</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/unlocking-sky-high-roi-with-predictive-analytics.html</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/revamping-real-estate-marketing-with-ai-powered-virtual-staging.html</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/revolutionizing-real-estate-ai-enabled-brokerage-automation.html</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-roi-with-social-media-ai-for-lead-generation.html</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-returns-proptech-integration-for-elite-brokers.html</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/leveraging-ai-for-cold-calling-maximizing-real-estate-roi.html</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
