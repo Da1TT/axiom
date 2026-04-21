@@ -1664,4 +1664,39 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-property-sales-with-chatgpt-powered-descriptions.html</loc>
+        <lastmod>2026-04-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-roi-with-top-tier-ai-crm-software.html</loc>
+        <lastmod>2026-04-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/harnessing-ai-for-cutting-edge-real-estate-market-analysis.html</loc>
+        <lastmod>2026-04-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-real-estate-roi-with-ai-virtual-staging.html</loc>
+        <lastmod>2026-04-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-roi-with-ai-driven-social-media-for-elite-brokers.html</loc>
+        <lastmod>2026-04-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
