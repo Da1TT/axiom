@@ -1790,4 +1790,46 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-roi-with-ai-crm-sales-engagement.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/forecasting-profits-leverage-predictive-analytics-in-real-estate.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/revolutionizing-real-estate-ai-s-role-in-virtual-staging.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/unlocking-roi-potential-with-ai-powered-social-media-in-real-estate.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/harnessing-ai-broker-automation-s-impact-on-transaction-efficiency.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/revolutionizing-real-estate-ai-s-impact-on-property-valuation.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
