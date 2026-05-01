@@ -2084,4 +2084,46 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/unveiling-high-roi-strategies-how-ai-crm-empowers-elite-brokers.html</loc>
+        <lastmod>2026-05-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/transformative-tech-virtual-staging-s-impact-on-real-estate-roi.html</loc>
+        <lastmod>2026-05-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/harnessing-ai-algorithms-for-real-estate-dominance.html</loc>
+        <lastmod>2026-05-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/broker-automation-harnessing-ai-to-boost-efficiency-and-profits.html</loc>
+        <lastmod>2026-05-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-roi-with-ai-powered-cold-calling.html</loc>
+        <lastmod>2026-05-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximize-roi-with-ai-powered-chatbots-in-real-estate.html</loc>
+        <lastmod>2026-05-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
