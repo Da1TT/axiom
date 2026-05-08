@@ -2399,4 +2399,53 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/harnessing-ai-for-real-estate-unveiling-buyer-insights.html</loc>
+        <lastmod>2026-05-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/leveraging-ai-crm-future-proofing-brokerage-success.html</loc>
+        <lastmod>2026-05-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/the-future-of-real-estate-virtual-staging-with-ai.html</loc>
+        <lastmod>2026-05-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/ai-powered-predictive-analytics-the-new-standard-for-elite-brokers.html</loc>
+        <lastmod>2026-05-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-broker-profits-with-ai-automation.html</loc>
+        <lastmod>2026-05-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/harnessing-ai-for-social-selling-success.html</loc>
+        <lastmod>2026-05-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://axiomproptech.com/articles/maximizing-broker-profits-with-ai.html</loc>
+        <lastmod>2026-05-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
